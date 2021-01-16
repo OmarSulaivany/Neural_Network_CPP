@@ -46,6 +46,10 @@ private:
   /* We need this function when we do the backpropagation to update our weights. */
   static double Activation_prime(double x);
 
+  /* To calculate the error rate in the hidden layers per-each neuron we will take the sum of the derivative of weights of 
+     the next layer. */
+  double sumDOW(const Layer& nextLayer) const;
+
 
   /* This function will return a random decimal number between 0,1. We need this function because when we first construct a neuron
    we need to assign to it random weight values. */
@@ -57,12 +61,15 @@ private:
    // the vector of Output weights and deltaweights. 
    vector <Connection> m_outputWeights;
 
-   // indexing each neuron, this important when we sum up outputvals * weights , we need the neuron index to know what weights
-   // to multiply with what outputvals.
+   /* indexing each neuron, this important when we sum up outputvals * weights , we need the neuron index to know what weights
+      to multiply with what outputvals. */
    unsigned m_myIndex;
 
    // We need this variable to handle the error "the difference between our output values in the last layer and our target value".
    double m_error;
+
+   // This memeber handles the gradient decent of the neuron.
+   double m_gradient;
 
 };
 

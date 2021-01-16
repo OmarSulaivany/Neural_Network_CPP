@@ -2,6 +2,7 @@
 #include "Connection.h"
 #include <vector>
 #include <cmath>
+//Added 
 
 Neuron::Neuron(unsigned numOutPuts, unsigned myIndex)
 {
@@ -32,7 +33,7 @@ double Neuron::Activation(double x)
 double Neuron::Activation_prime(double x)
 {
     /* The derivative of Tanh(x). */
-	return 1- x*x;
+	return 1- x * x;
 }
 
 

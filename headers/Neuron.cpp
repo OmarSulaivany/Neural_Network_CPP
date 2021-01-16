@@ -2,7 +2,12 @@
 #include "Connection.h"
 #include <vector>
 #include <cmath>
-//Added plus
+
+// Overall net learning rate, we might need to tune this number to make our network perform better and faster.
+double Neuron::learning_rate = 0.001;
+
+// Momentum, multiplier of last deltaWeight, we might need to change this number to make our network perform better and faster.
+double Neuron::momentum = 0.5; 
 
 Neuron::Neuron(unsigned numOutPuts, unsigned myIndex)
 {
@@ -96,26 +101,41 @@ void Neuron::updateInputWeights(Layer& prevLayer)
 	/* loop through each neuron in the previous layer. */
 	for (unsigned n = 0; n < prevLayer.size(); ++n)
 	{
-		// Create a neuron to be same as the neuron in the previous layer.
+		/* Create a neuron to be same as the neuron in the previous layer. */
 		Neuron& neuron = prevLayer[n];
 
 		// Save all "current" weights of neuron of the previous layer.
 		double oldDeltaWeight = neuron.m_outputWeights[m_myIndex].deltaWeight;
 
 		 /* Factors that effects the updating of weights of each neuron are ("learning rate, gradient decent of the neuron and
-		    the output value of the previous neuron. learning rate*output of the previous neuron*gradient decent of the current
-		    neuron. Also a momentum = a fraction of the previous delta weight * "Old Weights". momentum rate. momentum helps to
-		    extend the movement in the same direction, when the oldweights are almost the same as the current weights.*/
+		    the output value of the previous neuron. 
+
+		    learning rate * output of the previous neuron * gradient decent of the current neuron.
+		    Plus momentum = a fraction of the previous delta weight * "Old Weights". 
+
+		    momentum helps to extend the movement in the same direction, when the oldweights are almost the same as the 
+		    current weights.*/
 		double newDeltaWeight =
 
-			// Individual input, magnified by the gradient and train rate:
+			/* Individual input, magnified by the gradient and train rate. */
 			learning_rate
+
+			/* Output value of the previous neuron. */
 			* neuron.getOutputVal()
+
+			// Gradient decent of the neuron
 			* m_gradient
-			// Also add momentum = a fraction of the previous delta weight
+
+			/* momentum = a fraction of the previous delta weight. */
 			+ momentum
+
+			/* Old changing weight. */
 			* oldDeltaWeight;
-		neuron.m_outputWeights[m_myIndex].deltaWeight = newDeltaWeight;// update the delta weights to store the current new weight. in the previous layer neurons.
-		neuron.m_outputWeights[m_myIndex].weight += newDeltaWeight;// update the current weights in each neuron of the previous layer, W_new=W_old + NewDeltaWeights.
+
+		/* Update the delta weights to store the current new weight. in the previous layer neurons. */
+		neuron.m_outputWeights[m_myIndex].deltaWeight = newDeltaWeight;
+
+		/* Update the current weights in each neuron of the previous layer, W_new=W_old + NewDeltaWeights. */
+		neuron.m_outputWeights[m_myIndex].weight += newDeltaWeight;
 	}
 }

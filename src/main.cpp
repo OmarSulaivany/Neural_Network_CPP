@@ -1,4 +1,4 @@
-// Neural Network.
+// Neural Network Implementation in c++.
 #include <vector>
 #include "../headers/Net.h"
 #include <iostream>

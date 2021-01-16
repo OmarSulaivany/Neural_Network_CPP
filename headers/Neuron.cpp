@@ -2,7 +2,7 @@
 #include "Connection.h"
 #include <vector>
 #include <cmath>
-//Added 
+//Added plus
 
 Neuron::Neuron(unsigned numOutPuts, unsigned myIndex)
 {

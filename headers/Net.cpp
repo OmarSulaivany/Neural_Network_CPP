@@ -98,7 +98,7 @@ void Net::backProb(const vector <double> &targetVals)
 		5- for all layer starting from output to the first hidden layer, update the connection weights*/
 
 
-	/* 1- Calculate overal net error (RMS of output neuron errors), RMS  Error = sqrt(1/n * sum(Target - output)^2). */
+/* 1- Calculate overal net error (RMS of output neuron errors), RMS  Error = sqrt(1/n * sum(Target - output)^2). */
 
     /* Create a layer and the store the values of the last layer "output" layer in it. */
 	Layer& outputLayer = m_layers.back(); 
@@ -122,4 +122,45 @@ void Net::backProb(const vector <double> &targetVals)
 	/* RMS, sequare root the Error and by that we have the RMS fully applied. */
 	m_error = sqrt(m_error); 
 
+/* 2- Calcualting the Gradient decent of the last layer.Calculate output layer gradients. */
+
+	/* loop through each neurons in the lastlayer except the bias. */
+	for (unsigned n = 0; n < outputLayer.size() - 1; ++n) 
+	{
+		/* To calculate each neurons gradient it needs to have it's target value. */
+		outputLayer[n].calcOutputGradients(targetVals[n]);
+	}
+
+/* 3- Calculating the Gradient decent of all neurons in the hidden Layers. */
+
+    /* loop through all hidden layers . */
+	for (unsigned layerNum = m_layers.size() - 2; layerNum > 0; --layerNum)
+	{
+		/* Create a Layer to store the current Hidden Layer. */
+		Layer& hiddenLayer = m_layers[layerNum];  
+
+        /* Create a Layer to store the Next Layer. to be the target outputs of the hiddent layer */
+		Layer& nextLayer = m_layers[layerNum + 1];
+
+		/* Loop through each neurons in the hidden layer except bias. */
+		for (unsigned n = 0; n < hiddenLayer.size(); ++n) 
+		{
+			/* To calculate the gradient decent of each neuron in the hidden layer we will need to pass the Nextlayer. */
+			hiddenLayer[n].calcHiddenGradients(nextLayer);
+		}
+	}
+
+/* 4- for all layer starting from output to the first hidden layer, update the connection weights. */
+
+	/* loop through all layers except the first and last layer as they dont have any Weights. */
+	for (unsigned layerNum = m_layers.size() - 1; layerNum > 0; --layerNum)
+	{
+		Layer& layer = m_layers[layerNum]; // create a layer to store the current layer.
+		Layer& prevLayer = m_layers[layerNum - 1]; // create a layer to store previous layer.
+
+		for (unsigned n = 0; n < layer.size() - 1; ++n) //loop through each neurons in the current layer.
+		{
+			layer[n].updateInputWeights(prevLayer); // to update the weights of each neurons we will need to pass prev-layer to it.
+		}
+	}
 }

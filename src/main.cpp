@@ -1,4 +1,4 @@
-// Neural Network
+// Neural Network.
 #include <vector>
 #include "../headers/Net.h"
 #include <iostream>

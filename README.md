@@ -1,2 +1,2 @@
-# Neural_Network_C
+# Neural_Network_C++
 Artificial Neural Network in C++

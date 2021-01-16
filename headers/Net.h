@@ -17,7 +17,8 @@ public:
 
 	void feedforward(const vector <double> &inputVals);
 	void backProb(const vector <double> &targetVals);
-	void getResults(vector <double> &resultVals) const {};
+	void getResults(vector <double> &resultVals) const;
+	double getRecentAverageError(void) const { return m_recentAverageError; }
 
 private:
 

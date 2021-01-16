@@ -55,6 +55,12 @@ private:
    we need to assign to it random weight values. */
 	static double randomWeight(void) { return rand() / double(RAND_MAX);}
 
+  // Is the learning rate of the overall Network.
+  static double learning_rate; 
+
+  // Multiplier of last weight change [momentum].
+  static double momentum; 
+
    // The output value of the neuron.
    double m_outputVal;
 

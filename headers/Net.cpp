@@ -152,15 +152,34 @@ void Net::backProb(const vector <double> &targetVals)
 
 /* 4- for all layer starting from output to the first hidden layer, update the connection weights. */
 
-	/* loop through all layers except the first and last layer as they dont have any Weights. */
+	/* loop through all layers except the first and last layer as they dont have any weights. */
 	for (unsigned layerNum = m_layers.size() - 1; layerNum > 0; --layerNum)
 	{
-		Layer& layer = m_layers[layerNum]; // create a layer to store the current layer.
-		Layer& prevLayer = m_layers[layerNum - 1]; // create a layer to store previous layer.
+		/* Create a layer to store the current layer. */
+		Layer& layer = m_layers[layerNum]; 
 
-		for (unsigned n = 0; n < layer.size() - 1; ++n) //loop through each neurons in the current layer.
-		{
-			layer[n].updateInputWeights(prevLayer); // to update the weights of each neurons we will need to pass prev-layer to it.
+		/* Create a layer to store previous layer. */
+		Layer& prevLayer = m_layers[layerNum - 1]; 
+
+		/* Loop through each neurons in the current layer. */
+		for (unsigned n = 0; n < layer.size() - 1; ++n) 
+		{	
+			/* To update the weights of each neurons we will need to pass prev-layer to it. */
+			layer[n].updateInputWeights(prevLayer);
 		}
+	}
+}
+
+
+void Net::getResults(vector<double>& resultVals) const
+{
+	// Clear out the container.
+	resultVals.clear();
+    
+    /* Loop through all the neuron in the output layer. */
+	for (unsigned n = 0; n < m_layers.back().size() - 1; ++n)
+	{   
+		/* Move last layer neuron's output values into the resulVals. */
+		resultVals.push_back(m_layers.back()[n].getOutputVal());
 	}
 }

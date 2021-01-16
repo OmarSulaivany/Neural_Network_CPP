@@ -4,6 +4,8 @@
 #include <vector>
 using namespace std;
 
+// Number of training samples to average over.
+double Net::m_recentAverageSmoothingFactor = 100.0; 
 
 /* pass the reference topology vector e.g {3,2,1}. */
 Net::Net( vector<unsigned> &topology)
@@ -43,6 +45,9 @@ Net::Net( vector<unsigned> &topology)
 		cout<<" A Neuron number "<<neuronNum<<" has been made"<<endl;
 
 		}
+
+		/* Set the bias neuron output value to 1.0. which is the last neuron created in each layer. */
+		m_layers.back().back().setOutputVal(1.0);
 	}
 
 }
@@ -121,6 +126,12 @@ void Net::backProb(const vector <double> &targetVals)
 
 	/* RMS, sequare root the Error and by that we have the RMS fully applied. */
 	m_error = sqrt(m_error); 
+
+	/* Implement a recent average measurement, for visualizing "printing" the error in the last couple of iterations to see
+	   how well the network perform. */
+	m_recentAverageError =
+		(m_recentAverageError * m_recentAverageSmoothingFactor + m_error)
+		/ (m_recentAverageSmoothingFactor + 1.0);
 
 /* 2- Calcualting the Gradient decent of the last layer.Calculate output layer gradients. */
 

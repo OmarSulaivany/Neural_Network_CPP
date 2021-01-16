@@ -29,7 +29,14 @@ public:
   /* This function apply math part inside the neuron output = sum(Inputi * Weighti). */
   void feedforward(const layer &preLayer);
 
-  
+  /* This function calculates the gradient of each neuron in the output layer. */
+  void calcOutputGradients(double targetVals); 
+
+  /* This function calculates the gradient of each neuron in the hidden layers. */
+  void calcHiddenGradients(const Layer& nextLayer);
+
+  /* This function updates the weights of each neurons. it needs to know the previous layer parameter. */
+  void updateInputWeights(Layer& prevLayer);
 
 private:
 

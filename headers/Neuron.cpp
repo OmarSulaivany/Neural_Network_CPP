@@ -73,3 +73,49 @@ void Neuron::calcHiddenGradients(const Layer& nextLayer)
 	/* To get the gradient we multiply the derivative of the activation function with our delata change. */
 	m_gradient = dow * Neuron::activationDerivative(m_outputVal);
 }
+
+double Neuron::sumDOW(const Layer& nextLayer) const
+{
+	// We will need this variable to store the summation of the derivative of weights of each neuron in the next layer.
+	double sum = 0.0;
+
+	/* loop through each neuron in the next layer except the bias neuron. */
+	for (unsigned n = 0; n < nextLayer.size() - 1; ++n)
+	{
+		/* The weights in the current neuron * the gradient decent of the neuron in the next layer. */
+		sum += m_outputWeights[n].weight * nextLayer[n].m_gradient;
+	}
+
+	return sum;
+}
+
+void Neuron::updateInputWeights(Layer& prevLayer)
+{
+	/* Note: The weights to be updated are in a container of connections in the neurons of the previous layer. */
+
+	/* loop through each neuron in the previous layer. */
+	for (unsigned n = 0; n < prevLayer.size(); ++n)
+	{
+		// Create a neuron to be same as the neuron in the previous layer.
+		Neuron& neuron = prevLayer[n];
+
+		// Save all "current" weights of neuron of the previous layer.
+		double oldDeltaWeight = neuron.m_outputWeights[m_myIndex].deltaWeight;
+
+		 /* Factors that effects the updating of weights of each neuron are ("learning rate, gradient decent of the neuron and
+		    the output value of the previous neuron. learning rate*output of the previous neuron*gradient decent of the current
+		    neuron. Also a momentum = a fraction of the previous delta weight * "Old Weights". momentum rate. momentum helps to
+		    extend the movement in the same direction, when the oldweights are almost the same as the current weights.*/
+		double newDeltaWeight =
+
+			// Individual input, magnified by the gradient and train rate:
+			learning_rate
+			* neuron.getOutputVal()
+			* m_gradient
+			// Also add momentum = a fraction of the previous delta weight
+			+ momentum
+			* oldDeltaWeight;
+		neuron.m_outputWeights[m_myIndex].deltaWeight = newDeltaWeight;// update the delta weights to store the current new weight. in the previous layer neurons.
+		neuron.m_outputWeights[m_myIndex].weight += newDeltaWeight;// update the current weights in each neuron of the previous layer, W_new=W_old + NewDeltaWeights.
+	}
+}

@@ -6,7 +6,7 @@ using namespace std;
 
 
 /* Layer contain a number of Neurons. */
-// Another comment.
+
 typedef vector<Neuron> Layer;
 
 class Net

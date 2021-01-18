@@ -2,6 +2,7 @@
 #include "Connection.h"
 #include <vector>
 #include <cmath>
+#include <iostream>
 
 // Overall net learning rate, we might need to tune this number to make our network perform better and faster.
 double Neuron::learning_rate = 0.001;
@@ -13,7 +14,7 @@ Neuron::Neuron(unsigned numOutPuts, unsigned myIndex)
 {
 
 /* Loop through number of outputs, the next code will create connections based on the number of outputs, after that feed each weight
- with random number. */
+   with random number. */
  for (unsigned c = 0; c < numOutPuts; ++c)
  {
  	/* Create output connections in the neuron. */
@@ -25,6 +26,17 @@ Neuron::Neuron(unsigned numOutPuts, unsigned myIndex)
 
 /* Handle the index of the neuron locally. */
 m_myIndex = myIndex;
+
+std::cout<<"Neuron number "<<m_myIndex<<" has been made"<<endl;
+std::cout<< "Connection weights " <<m_outputWeights.size()<<endl;
+for(unsigned i=0;i<m_outputWeights.size();++i)
+{ std::cout<<"Weight "<<i<<" = "<<m_outputWeights[i].weight<<endl;
+  //std::cout<<"Delta Weight "<<i<<" = "<<m_outputWeights[i].deltaWeight<<endl;
+}
+std::cout<<"Output Value = "<<m_outputVal<<endl;
+std::cout<<"===================================================\n";
+
+
 
 }
 
@@ -42,22 +54,26 @@ double Neuron::Activation_prime(double x)
 }
 
 
-void Neuron::feedforward(const layer &preLayer)
+void Neuron::feedforward(const Layer &preLayer)
 {
     // variable sum, to sum the output of each neuron of the previous layer including the bias neuron. (which are our inputs).
 	double sum = 0.0;
 
-    /* loop through each neuron in the previous layer. */
-	for(unsigned n = 0 ; n<preLayer; ++n)
+    /* loop through each neuron in the previous layer including bias. */
+	for(unsigned n = 0 ; n<preLayer.size(); ++n)
 	{
 
-		/* Sum all ( neurons * weights in the previous layer), and since our weight vector has it's own index we will pass m_myindex 
-		wich is the neuron index. */
-		sum+= preLayer[n].getOutputVals() * preLayer[n].m_outputWeights[m_myIndex].weight;
+		/* Sum all ( neurons * weights in the previous layer), and since our weight vector has it's own index we will pass m_myIndex 
+		wich is the current neuron index. */
+		sum+= preLayer[n].getOutputVal() * preLayer[n].m_outputWeights[m_myIndex].weight;
 	}
 
     /* Apply an activation function to the output to make it between a specific range, in our case -1,1. */
 	m_outputVal = Neuron::Activation(sum);
+
+	//m_outputVal = sum;
+
+	cout<<m_outputVal<<endl;
 }
 
 void Neuron::calcOutputGradients(double targetVals)
@@ -76,7 +92,7 @@ void Neuron::calcHiddenGradients(const Layer& nextLayer)
 	double dow = sumDOW(nextLayer);
 
 	/* To get the gradient we multiply the derivative of the activation function with our delata change. */
-	m_gradient = dow * Neuron::activationDerivative(m_outputVal);
+	m_gradient = dow * Neuron::Activation_prime(m_outputVal);
 }
 
 double Neuron::sumDOW(const Layer& nextLayer) const
@@ -98,7 +114,7 @@ void Neuron::updateInputWeights(Layer& prevLayer)
 {
 	/* Note: The weights to be updated are in a container of connections in the neurons of the previous layer. */
 
-	/* loop through each neuron in the previous layer. */
+	/* loop through each neuron in the previous layer including bias. */
 	for (unsigned n = 0; n < prevLayer.size(); ++n)
 	{
 		/* Create a neuron to be same as the neuron in the previous layer. */

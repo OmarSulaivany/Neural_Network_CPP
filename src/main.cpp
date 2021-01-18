@@ -1,4 +1,4 @@
-// Neural Network Implementation in c++.
+// Neural Network Implementation in C++.
 #include <vector>
 #include "../headers/Net.h"
 #include <iostream>
@@ -12,7 +12,7 @@ int main()
 	 vector <unsigned> topology;
 
 	/* Input layer e.g topology.push_back(3) has 3 neurons */
-	topology.push_back(3);
+	topology.push_back(2);
 
 	/* Hidden layer, e.g topology.push_back(2) has 2 neurons */
 	topology.push_back(2);
@@ -23,15 +23,27 @@ int main()
 
    	Net myNet(topology);
 
+    
+  /*  vector <double> inputVals;
+    inputVals.push_back(3);
+    inputVals.push_back(4);
+    inputVals.push_back(2);
 
-    vector <double> inputVals;
-	myNet.feedforward(inputVals);
+	myNet.feedForward(inputVals);
+
 
 	vector <double> targetVals;
-	myNet.backProb(targetVals);
+
+	targetVals.push_back(2);
+	myNet.backProbagation(targetVals);
 
 	vector <double> resultVals;
 	myNet.getResults(resultVals);
+
+	for(unsigned i=0;i<resultVals.size();++i)
+		{cout<<"Prediction = "<<resultVals[i]<<endl;}*/
+
+   	
 
     return 0;
 }

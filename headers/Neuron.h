@@ -8,7 +8,12 @@ using namespace std;
 /*The Neuron has the following:
 1- output value.
 2- output weights in a vector
-And it needs to know the number of Neurons in the next layer in order to create output connections.  */
+And it needs to know the number of Neurons in the next layer in order to create output weight connections.  */
+
+class Neuron;
+
+/* Layer contain a number of Neurons. */
+typedef vector<Neuron> Layer;
 
 class Neuron
  {
@@ -27,7 +32,7 @@ public:
   double getOutputVal(void) const {return m_outputVal;}
 
   /* This function apply math part inside the neuron output = sum(Inputi * Weighti). */
-  void feedforward(const layer &preLayer);
+  void feedforward(const Layer &preLayer);
 
   /* This function calculates the gradient of each neuron in the output layer. */
   void calcOutputGradients(double targetVals); 
@@ -37,6 +42,7 @@ public:
 
   /* This function updates the weights of each neurons. it needs to know the previous layer parameter. */
   void updateInputWeights(Layer& prevLayer);
+  
 
 private:
 
@@ -70,9 +76,6 @@ private:
    /* indexing each neuron, this important when we sum up outputvals * weights , we need the neuron index to know what weights
       to multiply with what outputvals. */
    unsigned m_myIndex;
-
-   // We need this variable to handle the error "the difference between our output values in the last layer and our target value".
-   double m_error;
 
    // This memeber handles the gradient decent of the neuron.
    double m_gradient;

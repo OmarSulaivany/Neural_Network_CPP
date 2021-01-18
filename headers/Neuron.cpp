@@ -5,10 +5,10 @@
 #include <iostream>
 
 // Overall net learning rate, we might need to tune this number to make our network perform better and faster.
-double Neuron::learning_rate = 0.001;
+double Neuron::learning_rate = 0.05;
 
 // Momentum, multiplier of last deltaWeight, we might need to change this number to make our network perform better and faster.
-double Neuron::momentum = 0.5; 
+double Neuron::momentum = 0.9;
 
 Neuron::Neuron(unsigned numOutPuts, unsigned myIndex)
 {
@@ -63,7 +63,7 @@ void Neuron::feedforward(const Layer &preLayer)
 	for(unsigned n = 0 ; n<preLayer.size(); ++n)
 	{
 
-		/* Sum all ( neurons * weights in the previous layer), and since our weight vector has it's own index we will pass m_myIndex 
+		/* Sum all ( neurons * weights in the previous layer), and since our weight vector has it's own index we will pass m_myIndex
 		wich is the current neuron index. */
 		sum+= preLayer[n].getOutputVal() * preLayer[n].m_outputWeights[m_myIndex].weight;
 	}
@@ -77,7 +77,7 @@ void Neuron::feedforward(const Layer &preLayer)
 }
 
 void Neuron::calcOutputGradients(double targetVals)
-{	
+{
 	/* Calculate the difference between the target and output value of the neuron. */
 	double delta = targetVals - m_outputVal;
 
@@ -124,12 +124,12 @@ void Neuron::updateInputWeights(Layer& prevLayer)
 		double oldDeltaWeight = neuron.m_outputWeights[m_myIndex].deltaWeight;
 
 		 /* Factors that effects the updating of weights of each neuron are ("learning rate, gradient decent of the neuron and
-		    the output value of the previous neuron. 
+		    the output value of the previous neuron.
 
 		    learning rate * output of the previous neuron * gradient decent of the current neuron.
-		    Plus momentum = a fraction of the previous delta weight * "Old Weights". 
+		    Plus momentum = a fraction of the previous delta weight * "Old Weights".
 
-		    momentum helps to extend the movement in the same direction, when the oldweights are almost the same as the 
+		    momentum helps to extend the movement in the same direction, when the oldweights are almost the same as the
 		    current weights.*/
 		double newDeltaWeight =
 

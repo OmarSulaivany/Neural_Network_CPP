@@ -42,7 +42,7 @@ private:
        last couple of iterations. */
     double m_recentAverageError;
 
-    // Same as above we use this variable in a formula were we can see the results of overall error after some iterations.
+  // Same as above we use this variable in a formula were we can see the results of overall error after some iterations.
 	static double m_recentAverageSmoothingFactor;
 
 };

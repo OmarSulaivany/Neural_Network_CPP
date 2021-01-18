@@ -1,4 +1,4 @@
-// Neural Network Implementation in C++. Gitkraken man i have added you.
+// Neural Network Implementation in C++.
 #include <vector>
 #include "../headers/Net.h"
 #include <iostream>

@@ -4,6 +4,9 @@
 #include <vector>
 using namespace std;
 
+
+
+
 /* Layer contain a number of Neurons. */
 typedef vector<Neuron> Layer;
 
@@ -15,9 +18,16 @@ public:
 	/* pass the reference topology vector e.g {3,2,1}. */
 	Net(const vector <unsigned> &topology);
 
-	void feedforward(const vector <double> &inputVals);
-	void backProb(const vector <double> &targetVals);
+	/* This function does the feedForward on the entire Network. */
+	void feedForward(const vector <double> &inputVals);
+
+	/* This function does the Backpropagation on the entire Network. */
+	void backProbagation(const vector <double> &targetVals);
+
+	/* This function show the results after the training is completed on the entire Network. */
 	void getResults(vector <double> &resultVals) const;
+
+	/* This function shows the error after a specific number of iterations */
 	double getRecentAverageError(void) const { return m_recentAverageError; }
 
 private:

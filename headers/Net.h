@@ -5,9 +5,8 @@
 using namespace std;
 
 
-
-
 /* Layer contain a number of Neurons. */
+// Another comment.
 typedef vector<Neuron> Layer;
 
 class Net
@@ -32,7 +31,7 @@ public:
 
 private:
 
-	/* m_layers[layerNum][neuronNum], m_layers is a vector of layers and because a layer is a vector of neurons then it means 
+	/* m_layers[layerNum][neuronNum], m_layers is a vector of layers and because a layer is a vector of neurons then it means
 	m_layers is a 2d vector that represents [layer_number][neuron_number]. */
 	vector <Layer> m_layers;
 
@@ -41,7 +40,7 @@ private:
 
     /* We use this variable in the formula where we can see how well our neural notwork performs by printing out the Error in the
        last couple of iterations. */
-    double m_recentAverageError; 
+    double m_recentAverageError;
 
     // Same as above we use this variable in a formula were we can see the results of overall error after some iterations.
 	static double m_recentAverageSmoothingFactor;

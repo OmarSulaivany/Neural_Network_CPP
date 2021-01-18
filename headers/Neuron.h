@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include<vector>
 using namespace std;
-//And here
+
 /*The Neuron has the following:
 1- output value.
 2- output weights in a vector

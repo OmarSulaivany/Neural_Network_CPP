@@ -3,7 +3,7 @@ Author: Omar T. Mohammed
 Date: 18-Jan-2021 */
 
 #include <vector>
-#include "../headers/Net.h"
+#include "../include/Net.h"
 #include <iostream>
 using namespace std;
 

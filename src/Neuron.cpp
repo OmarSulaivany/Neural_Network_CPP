@@ -3,77 +3,64 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
+#include <cstdlib> // For srand() and rand()
 
 // Overall net learning rate, we might need to tune this number to make our network perform better and faster.
-double Neuron::learning_rate = 0.05;
+double Neuron::learning_rate = 0.01;
 
 // Momentum, multiplier of last deltaWeight, we might need to change this number to make our network perform better and faster.
-double Neuron::momentum = 0.9;
+double Neuron::momentum = 0.05;
 
-Neuron::Neuron(unsigned numOutPuts, unsigned myIndex)
+Neuron::Neuron(unsigned numOutputs, unsigned myIndex)
 {
+    // Seed the random number generator (only once for reproducibility)
+    static bool seeded = false;
+    if (!seeded) {
+        srand(42); // Fixed seed for reproducibility
+        seeded = true;
+    }
 
-/* Loop through number of outputs, the next code will create connections based on the number of outputs, after that feed each weight
-   with random number. */
- for (unsigned c = 0; c < numOutPuts; ++c)
- {
- 	/* Create output connections in the neuron. */
- 	m_outputWeights.push_back(Connection());
+    /* Loop through the number of outputs. The next code will create connections based on the number of outputs,
+       after that feed each weight with a random number using Xavier Initialization. */
+    for (unsigned c = 0; c < numOutputs; ++c)
+    {
+        /* Create output connections in the neuron. */
+        m_outputWeights.push_back(Connection());
 
- 	/* Set a random number to the Weight variable in the created connection. */
-    m_outputWeights.back().weight = randomWeight();
- }
+        /* Set a random number to the Weight variable in the created connection using Xavier Initialization. */
+        m_outputWeights.back().weight = randomWeight(numOutputs);
+    }
 
-/* Handle the index of the neuron locally. */
-m_myIndex = myIndex;
-
-std::cout<<"Neuron number "<<m_myIndex<<" has been made"<<endl;
-std::cout<< "Connection weights " <<m_outputWeights.size()<<endl;
-for(unsigned i=0;i<m_outputWeights.size();++i)
-{ std::cout<<"Weight "<<i<<" = "<<m_outputWeights[i].weight<<endl;
-  //std::cout<<"Delta Weight "<<i<<" = "<<m_outputWeights[i].deltaWeight<<endl;
-}
-std::cout<<"Output Value = "<<m_outputVal<<endl;
-std::cout<<"===================================================\n";
-
-
-
+    /* Handle the index of the neuron locally. */
+    m_myIndex = myIndex;
 }
 
-double Neuron::Activation(double x)
-{
-    /* We will use Hyperbolic tangent function to transform our output value into a range between (-1,1). */
-	return tanh(x);
+/* Tanh activation function: Transforms the output value into a range between -1 and 1. */
+double Neuron::Activation(double x) {
+    return tanh(x);
 }
 
-
-double Neuron::Activation_prime(double x)
-{
-    /* The derivative of Tanh(x). */
-	return 1- x * x;
+/* Derivative of the tanh function: tanh'(x) = 1 - tanh(x)^2. */
+double Neuron::Activation_prime(double x) {
+    double tanh_x = tanh(x);
+    return 1.0 - tanh_x * tanh_x;
 }
-
 
 void Neuron::feedforward(const Layer &preLayer)
 {
-    // variable sum, to sum the output of each neuron of the previous layer including the bias neuron. (which are our inputs).
-	double sum = 0.0;
+    // Variable sum, to sum the output of each neuron of the previous layer including the bias neuron (which are our inputs).
+    double sum = 0.0;
 
-    /* loop through each neuron in the previous layer including bias. */
-	for(unsigned n = 0 ; n<preLayer.size(); ++n)
-	{
+    /* Loop through each neuron in the previous layer including bias. */
+    for (unsigned n = 0; n < preLayer.size(); ++n)
+    {
+        /* Sum all (neurons * weights in the previous layer), and since our weight vector has its own index, 
+           we will pass m_myIndex, which is the current neuron index. */
+        sum += preLayer[n].getOutputVal() * preLayer[n].m_outputWeights[m_myIndex].weight;
+    }
 
-		/* Sum all ( neurons * weights in the previous layer), and since our weight vector has it's own index we will pass m_myIndex
-		wich is the current neuron index. */
-		sum+= preLayer[n].getOutputVal() * preLayer[n].m_outputWeights[m_myIndex].weight;
-	}
-
-    /* Apply an activation function to the output to make it between a specific range, in our case -1,1. */
-	m_outputVal = Neuron::Activation(sum);
-
-	//m_outputVal = sum;
-
-	cout<<m_outputVal<<endl;
+    /* Apply the tanh activation function to the output. */
+    m_outputVal = Neuron::Activation(sum);
 }
 
 void Neuron::calcOutputGradients(double targetVals)

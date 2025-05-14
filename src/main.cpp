@@ -4,130 +4,123 @@ Date: 18-Jan-2021 */
 
 #include <vector>
 #include "../include/Net.h"
+#include "../include/dataset.h"
 #include <iostream>
+#include <cmath> // For calculating loss
 using namespace std;
 
+/* Function to train the network */
+void trainComplexNetwork(Net& myNet, const vector<vector<double>>& trainingInputs, const vector<vector<double>>& trainingTargets, unsigned totalEpochs) {
+    vector<double> resultVals;
 
-int main()
+    /***************************Training Phase**************************************/
+    for (unsigned epoch = 0; epoch < totalEpochs; ++epoch) {
+        double totalLoss = 0.0; // Accumulator for loss over the training dataset
 
-{
-    /* Create a vector of topology, which specifies number of layers and neurons in the Neural network. */
-	 vector <unsigned> topology;
+        /* Loop through the training dataset */
+        for (unsigned i = 0; i < trainingInputs.size(); ++i) {
+            /* Get the current training example */
+            const vector<double>& inputVals = trainingInputs[i];
+            const vector<double>& targetVals = trainingTargets[i];
 
-	/* Input layer e.g topology.push_back(2) has 2 neurons */
-	topology.push_back(2);
+            /* Do feedForward. */
+            myNet.feedForward(inputVals);
 
-	/* Hidden layer, e.g topology.push_back(8) has 8 neurons */
-	topology.push_back(8);
+            /* Do Back backProbagation. */
+            myNet.backProbagation(targetVals);
 
-	/* Output layer, e.g topology.push_back(1) has one neuron*/
-	topology.push_back(1);
+            /* Store the results in resultVals. */
+            myNet.getResults(resultVals);
 
- /* Initialize a Network with the above specifications */
-  Net myNet(topology);
+            /* Calculate loss (Mean Squared Error) for this example */
+            totalLoss += pow(resultVals[0] - targetVals[0], 2);
+        }
 
-/* Creating a dynamic dataset to solve XOR problem. */
-
-// First bit.
-unsigned a=0;
-
-//Second bit.
-unsigned b=0;
-
-// A vector to store inputs.
-vector <double> inputVals;
-
-// A vector to store Target outputs.
-vector <double> targetVals;
-
-// A vector to store Results after the training is finished.
-vector <double> resultVals;
-
-
-/***************************Training Phase**************************************/
-/* do epochs-th to train the created Network. */
-for(unsigned epochs=0;epochs<1000;++epochs)
-{
-	/* Store the first bit in the inputVals. */
-	inputVals.push_back(a);
-
-	/* Store the second bit in the inputVals. */
-	inputVals.push_back(b);
-
-
-/* These conditions assigns bits to a and b with it's corresponding Target to statisfy the XOR problem. */
-	if(a==0 && b==0)
-	{
-		a=1;
-		b=0;
-		targetVals.push_back(0);
-	}
-	else if( a==1  && b==0)
-	{
-		a=0;
-		b=1;
-		targetVals.push_back(1);
-	}
-	else if( a==0  && b==1)
-	{
-		a=1;
-		b=1;
-		targetVals.push_back(1);
-	}
-	else if( a==1  && b==1)
-	{
-		a=0;
-		b=0;
-		targetVals.push_back(0);
-	}
-
-  /* Do feedForward. */
-	myNet.feedForward(inputVals);
-
-  /* Do Back backProbagation. */
-	myNet.backProbagation(targetVals);
-
- /* Store the results in resultVals. */
-	myNet.getResults(resultVals);
-
- /* Output the final resutls. */
-	for(unsigned i=0;i<resultVals.size();++i)
-		{cout<<"Prediction = "<<resultVals[i]<<endl;}
-
-/* Clear all. */
-	inputVals.clear();
-	targetVals.clear();
-	resultVals.clear();
+        /* Output the average loss for this epoch (optional, can be limited for clarity). */
+        if ((epoch + 1) % 1000 == 0) { // Print every 1,000 epochs
+            double averageLoss = totalLoss / trainingInputs.size();
+            cout << "Epoch " << epoch + 1 << ": Average Loss = " << averageLoss << endl;
+        }
+    }
 }
 
-//**********************Make Predictions************************************/
+/* Function to test the network */
+void testComplexNetwork(Net& myNet, const vector<vector<double>>& testInputs, const vector<vector<double>>& testTargets) {
+    unsigned correctPredictions = 0;
+    double totalLoss = 0.0;
 
-/* Clear the console. */
-system("clear");
+    /***************************Testing Phase**************************************/
+    for (unsigned i = 0; i < testInputs.size(); ++i) {
+        /* Get the current test example */
+        const vector<double>& inputVals = testInputs[i];
+        const vector<double>& targetVals = testTargets[i];
 
-/* Enter the first bit. */
-cout<<"Enter the first input:";
-cin>>a;
+        /* Do feedForward to get predictions */
+        vector<double> resultVals;
+        myNet.feedForward(inputVals);
+        myNet.getResults(resultVals);
 
-/* Store the first bit into inputVals. */
-inputVals.push_back(a);
+        /* Calculate accuracy */
+        if (resultVals[0] >= 0.5 && targetVals[0] == 1.0) {
+            correctPredictions++;
+        } else if (resultVals[0] < 0.5 && targetVals[0] == 0.0) {
+            correctPredictions++;
+        }
 
-/* Enter the Second bit. */
-cout<<"Enter the Second input:";
-cin>>b;
+        /* Calculate loss (Mean Squared Error) */
+        totalLoss += pow(resultVals[0] - targetVals[0], 2);
+    }
 
-/* Store the first bit into inputVals. */
-inputVals.push_back(b);
+    /* Calculate and output final accuracy and loss */
+    double accuracy = (static_cast<double>(correctPredictions) / testInputs.size()) * 100.0;
+    double averageLoss = totalLoss / testInputs.size();
 
-/* Do feedForward to get an output */
-myNet.feedForward(inputVals);
+    cout << "\nTesting Results:" << endl;
+    cout << "Accuracy: " << accuracy << "%" << endl;
+    cout << "Average Loss: " << averageLoss << endl;
+}
 
-/* Store the results in resultVals. */
-myNet.getResults(resultVals);
+/* Function to check if there is any overlap between the training and test datasets */
+bool hasOverlap(const vector<vector<double>>& trainingInputs, const vector<vector<double>>& testInputs) {
+    for (const auto& trainInput : trainingInputs) {
+        for (const auto& testInput : testInputs) {
+            if (trainInput == testInput) {
+                return true; // Overlap found
+            }
+        }
+    }
+    return false; // No overlap
+}
 
-/* Output the final resutl/s. */
-for(unsigned i=0;i<resultVals.size();++i)
-	{cout<<"Prediction = "<<resultVals[i]<<endl;}
+int main() {
+    /* Create a vector of topology, which specifies number of layers and neurons in the Neural network. */
+    vector<unsigned> topology = {10, 32, 8, 1};
+
+    /* Initialize a Network with the above specifications */
+    Net myNet(topology);
+
+    // Training and test datasets
+    vector<vector<double>> trainingInputs, trainingTargets;
+    vector<vector<double>> testInputs, testTargets;
+
+    /* Generate training and test datasets */
+    generateTrainingSet(trainingInputs, trainingTargets, 1000); // 1000 training examples
+    generateTestSet(testInputs, testTargets, 100);             // 100 test examples
+
+    /* Check for overlap between training and test datasets */
+    if (hasOverlap(trainingInputs, testInputs)) {
+        cout << "Warning: Overlap detected between training and test datasets!" << endl;
+    } else {
+        cout << "No overlap detected between training and test datasets. Proceeding with training..." << endl;
+    }
+
+    /* Train the network */
+    cout << "Starting Training Phase..." << endl;
+    trainComplexNetwork(myNet, trainingInputs, trainingTargets, 12000); // Train for N epochs
+
+    /* Test the network */
+    cout << "\nStarting Testing Phase..." << endl;
+    testComplexNetwork(myNet, testInputs, testTargets);
 
     return 0;
 }

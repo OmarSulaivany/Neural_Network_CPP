@@ -1,1 +1,0 @@
-/usr/bin/c++  -O2 -DNDEBUG  -rdynamic CMakeFiles/Neural__Network_CPP.dir/src/main.cpp.o CMakeFiles/Neural__Network_CPP.dir/include/Net.cpp.o CMakeFiles/Neural__Network_CPP.dir/include/Neuron.cpp.o  -o Neural__Network_CPP 

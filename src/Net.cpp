@@ -40,7 +40,7 @@ Net::Net(const vector<unsigned> &topology)
 
 		for(unsigned neuronNum=0 ; neuronNum <=topology[layerNum]; ++neuronNum)
 		{
-			cout<<" Layer "<<layerNum<<endl;
+			// cout<<" Layer "<<layerNum<<endl;
         /* Fill each layer with it's corresponding neurons, each neuron with it's number of output connections and it's index. */
 		m_layers.back().push_back(Neuron(numOutPuts, neuronNum));
 	     
@@ -67,12 +67,12 @@ void Net::feedForward(const vector <double> &inputVals)
 	// Check the num of inputVals euqal to neuronnum expect bias.
 	assert(inputVals.size() == m_layers[0].size()-1);
  
-    cout<<"Layer 0\n";
+    // cout<<"Layer 0\n";
     /* loop through each neuron in the first layer and then assign inputvals into the neurons in the first layer. */
 	for(unsigned i=0;i<inputVals.size();++i)
 	{
 		m_layers[0][i].setOutputVal(inputVals[i]);
-		cout<<"Neuron "<<i<<" Output Value = "<<m_layers[0][i].getOutputVal()<<endl;
+		// cout<<"Neuron "<<i<<" Output Value = "<<m_layers[0][i].getOutputVal()<<endl;
 
 	}
 
@@ -83,7 +83,7 @@ void Net::feedForward(const vector <double> &inputVals)
 	for(unsigned layerNum = 1 ; layerNum<m_layers.size();++layerNum)
       {
 
-      	cout<<"Layer number "<<layerNum<<endl;
+      	// cout<<"Layer number "<<layerNum<<endl;
 
       	/* Create new Layer object and point it to the previous layer. */
       	Layer &preLayer = m_layers[layerNum -1];
@@ -91,14 +91,14 @@ void Net::feedForward(const vector <double> &inputVals)
         /* loop through each neuron in the current layer, except the bias neuron. */
       	for(unsigned n = 0;n<m_layers[layerNum].size() -1;++n)
       	{
-      		cout<<"Neuron "<<n<<" Output Value = ";
+      		// cout<<"Neuron "<<n<<" Output Value = ";
       		/* Apply feedforward function to each neuron. feedforward function is defined in the Neuron class. */
             m_layers[layerNum][n].feedforward(preLayer);
 
       	}
-      	cout<<"===================================================\n";
+      	// cout<<"===================================================\n";
       }
-      cout<<"Net Layers size = "<<m_layers.size()<<endl;
+    //   cout<<"Net Layers size = "<<m_layers.size()<<endl;
 	/* Note: when class Net is asked to feedforward, it's going to need to add up all of it's input values and then 
        apply a function to it to update it's output values. and in order to get the input values it needs to ask neurons
        in the previous layer what are the output values, because of that it is going to need to loop through all neurons 

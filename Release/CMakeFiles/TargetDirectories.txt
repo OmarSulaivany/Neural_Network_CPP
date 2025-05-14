@@ -1,3 +1,0 @@
-/home/omarsulaivany/Desktop/Gitkraken/Neural_Network_CPP/Release/CMakeFiles/rebuild_cache.dir
-/home/omarsulaivany/Desktop/Gitkraken/Neural_Network_CPP/Release/CMakeFiles/edit_cache.dir
-/home/omarsulaivany/Desktop/Gitkraken/Neural_Network_CPP/Release/CMakeFiles/Neural__Network_CPP.dir

@@ -18,7 +18,7 @@ endif()
 # -g         : include debug symbols
 # -march=native : use best SIMD supported by current CPU
 # -fno-inline   : keep functions and loops visible to Advisor
-set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -march=native -fno-inline")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -march=native -fno-inline")
 
 # Set the source files.
 set(NAME_SRC

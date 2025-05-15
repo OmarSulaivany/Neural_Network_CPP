@@ -34,7 +34,7 @@ void generateComplexData(std::vector<double>& inputVals, std::vector<double>& ta
 /* Function to generate a fixed training dataset */
 void generateTrainingSet(std::vector<std::vector<double>>& trainingInputs, std::vector<std::vector<double>>& trainingTargets, unsigned size) {
     // Seed the random number generator with a fixed seed for reproducibility
-    srand(42); // Fixed seed for training set
+    srand(42); // Fixed seed for training set.
 
     trainingInputs.clear();
     trainingTargets.clear();

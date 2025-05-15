@@ -21,7 +21,7 @@ This dataset simulates a real-world classification problem where the output depe
 1. Navigate to the `Release` directory:
    ```bash
       cd Release
-      cmake -DCMAKE_BUILD_TYPE=Release ../
+      cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo ../
       make
       ./Neural_Network_CPP
 ```

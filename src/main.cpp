@@ -9,11 +9,26 @@ Date: 18-Jan-2021 */
 #include <cmath> // For calculating loss
 using namespace std;
 
+/***************************Helper Functions**************************************/
+
+/* Function to check if there is any overlap between the training and test datasets */
+bool hasOverlap(const vector<vector<double>>& trainingInputs, const vector<vector<double>>& testInputs) {
+    for (const auto& trainInput : trainingInputs) {
+        for (const auto& testInput : testInputs) {
+            if (trainInput == testInput) {
+                return true; // Overlap found
+            }
+        }
+    }
+    return false; // No overlap
+}
+
+
+/***************************Training Phase**************************************/
+
 /* Function to train the network */
 void trainComplexNetwork(Net& myNet, const vector<vector<double>>& trainingInputs, const vector<vector<double>>& trainingTargets, unsigned totalEpochs) {
     vector<double> resultVals;
-
-    /***************************Training Phase**************************************/
     for (unsigned epoch = 0; epoch < totalEpochs; ++epoch) {
         double totalLoss = 0.0; // Accumulator for loss over the training dataset
 
@@ -44,12 +59,13 @@ void trainComplexNetwork(Net& myNet, const vector<vector<double>>& trainingInput
     }
 }
 
+
+/***************************Testing Phase**************************************/
 /* Function to test the network */
 void testComplexNetwork(Net& myNet, const vector<vector<double>>& testInputs, const vector<vector<double>>& testTargets) {
     unsigned correctPredictions = 0;
     double totalLoss = 0.0;
 
-    /***************************Testing Phase**************************************/
     for (unsigned i = 0; i < testInputs.size(); ++i) {
         /* Get the current test example */
         const vector<double>& inputVals = testInputs[i];
@@ -79,18 +95,7 @@ void testComplexNetwork(Net& myNet, const vector<vector<double>>& testInputs, co
     cout << "Accuracy: " << accuracy << "%" << endl;
     cout << "Average Loss: " << averageLoss << endl;
 }
-
-/* Function to check if there is any overlap between the training and test datasets */
-bool hasOverlap(const vector<vector<double>>& trainingInputs, const vector<vector<double>>& testInputs) {
-    for (const auto& trainInput : trainingInputs) {
-        for (const auto& testInput : testInputs) {
-            if (trainInput == testInput) {
-                return true; // Overlap found
-            }
-        }
-    }
-    return false; // No overlap
-}
+/*****************************************************************************/
 
 int main() {
     /* Create a vector of topology, which specifies number of layers and neurons in the Neural network. */
@@ -108,11 +113,11 @@ int main() {
     generateTestSet(testInputs, testTargets, 100);             // 100 test examples
 
     /* Check for overlap between training and test datasets */
-    if (hasOverlap(trainingInputs, testInputs)) {
-        cout << "Warning: Overlap detected between training and test datasets!" << endl;
-    } else {
-        cout << "No overlap detected between training and test datasets. Proceeding with training..." << endl;
-    }
+    // if (hasOverlap(trainingInputs, testInputs)) {
+    //     cout << "Warning: Overlap detected between training and test datasets!" << endl;
+    // } else {
+    //     cout << "No overlap detected between training and test datasets. Proceeding with training..." << endl;
+    // }
 
     /* Train the network */
     cout << "Starting Training Phase..." << endl;

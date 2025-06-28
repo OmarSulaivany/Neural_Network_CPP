@@ -1,0 +1,3 @@
+/home/omar/Neural_Network_CPP/Release/CMakeFiles/Neural_Network_CPP.dir
+/home/omar/Neural_Network_CPP/Release/CMakeFiles/edit_cache.dir
+/home/omar/Neural_Network_CPP/Release/CMakeFiles/rebuild_cache.dir

@@ -14,11 +14,19 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Set optimization flags for Intel Advisor profiling.
-# -O2        : safe optimization
-# -g         : include debug symbols
-# -march=native : use best SIMD supported by current CPU
-# -fno-inline   : keep functions and loops visible to Advisor
-set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -march=native -fno-inline")
+# -O2                  : safe optimization
+# -g                   : include debug symbols
+# -march=native        : use best SIMD supported by current CPU
+# -fno-inline          : keep functions and loops visible to Advisor
+# -pg                  : enable gprof profiling
+# -fno-tree-vectorize  : disable vectorization
+# -fopenmp             : enable OpenMP support (multi-threading)
+
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -march=native  -fno-inline -fopenmp -fno-tree-vectorize")
+
+# Set linker flags to enable gprof profiling and OpenMP output.
+# set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "-pg -fopenmp")
+set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "-fopenmp")
 
 # Set the source files.
 set(NAME_SRC

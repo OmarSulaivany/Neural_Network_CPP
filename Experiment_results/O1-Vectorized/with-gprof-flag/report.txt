@@ -1,0 +1,324 @@
+# Set optimization flags for Intel Advisor profiling.
+# -O2        : safe optimization
+# -g         : include debug symbols
+# -march=native : use best SIMD supported by current CPU
+# -fno-inline   : keep functions and loops visible to Advisor
+# -pg         : enable gprof profiling
+# -fno-tree-vectorize  : disable vectorization
+
+USED FLAGS  : -O1 -g -march=native -pg
+
+omar@omar-sulaivany:~/Neural_Network_CPP/Release$ ./O1-Vec 
+Starting Training Phase...
+Epoch 1000: Average Loss = 0.0037625
+Epoch 2000: Average Loss = 0.0010197
+Epoch 3000: Average Loss = 0.00046677
+Epoch 4000: Average Loss = 0.000326212
+Epoch 5000: Average Loss = 0.000431983
+Epoch 6000: Average Loss = 0.000296788
+Epoch 7000: Average Loss = 0.000186683
+Epoch 8000: Average Loss = 0.000192855
+Epoch 9000: Average Loss = 0.000130636
+Epoch 10000: Average Loss = 0.000226287
+Epoch 11000: Average Loss = 0.00010995
+Epoch 12000: Average Loss = 0.000242699
+
+Starting Testing Phase...
+
+Testing Results:
+Accuracy: 97%
+Average Loss: 0.0199181
+
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 56.35      9.89     9.89 492000000     0.00     0.00  Neuron::updateInputWeights(std::vector<Neuron, std::allocator<Neuron> >&)
+ 20.74     13.53     3.64 492004100     0.00     0.00  Neuron::feedforward(std::vector<Neuron, std::allocator<Neuron> > const&)
+  9.32     15.16     1.64 504000000     0.00     0.00  Neuron::sumDOW(std::vector<Neuron, std::allocator<Neuron> > const&) const
+  4.59     15.97     0.81 12000000     0.00     0.00  Net::backProbagation(std::vector<double, std::allocator<double> > const&)
+  2.48     16.41     0.43 12000100     0.00     0.00  Net::feedForward(std::vector<double, std::allocator<double> > const&)
+  2.28     16.80     0.40 516000000     0.00     0.00  Neuron::Activation_prime(double)
+  1.88     17.14     0.33                             _init
+  1.85     17.46     0.33 504000000     0.00     0.00  Neuron::calcHiddenGradients(std::vector<Neuron, std::allocator<Neuron> > const&)
+  0.28     17.51     0.05                             Neuron::Activation(double)
+  0.11     17.53     0.02 12000100     0.00     0.00  Net::getResults(std::vector<double, std::allocator<double> >&) const
+  0.11     17.55     0.02        1     0.02    17.17  trainComplexNetwork(Net&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, unsigned int)
+  0.00     17.55     0.00 12000000     0.00     0.00  Neuron::calcOutputGradients(double)
+  0.00     17.55     0.00    12100     0.00     0.00  void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&)
+  0.00     17.55     0.00     6701     0.00     0.00  void std::vector<double, std::allocator<double> >::_M_realloc_insert<double>(__gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > >, double&&)
+  0.00     17.55     0.00     1100     0.00     0.00  generateComplexData(std::vector<double, std::allocator<double> >&, std::vector<double, std::allocator<double> >&)
+  0.00     17.55     0.00      207     0.00     0.00  void std::vector<Connection, std::allocator<Connection> >::_M_realloc_insert<Connection>(__gnu_cxx::__normal_iterator<Connection*, std::vector<Connection, std::allocator<Connection> > >, Connection&&)
+  0.00     17.55     0.00       55     0.00     0.00  Neuron::Neuron(unsigned int, unsigned int)
+  0.00     17.55     0.00       38     0.00     0.00  void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_realloc_insert<std::vector<double, std::allocator<double> > const&>(__gnu_cxx::__normal_iterator<std::vector<double, std::allocator<double> >*, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > >, std::vector<double, std::allocator<double> > const&)
+  0.00     17.55     0.00       19     0.00     0.00  void std::vector<Neuron, std::allocator<Neuron> >::_M_realloc_insert<Neuron>(__gnu_cxx::__normal_iterator<Neuron*, std::vector<Neuron, std::allocator<Neuron> > >, Neuron&&)
+  0.00     17.55     0.00        4     0.00     0.00  std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::~vector()
+  0.00     17.55     0.00        3     0.00     0.00  void std::vector<std::vector<Neuron, std::allocator<Neuron> >, std::allocator<std::vector<Neuron, std::allocator<Neuron> > > >::_M_realloc_insert<std::vector<Neuron, std::allocator<Neuron> > >(__gnu_cxx::__normal_iterator<std::vector<Neuron, std::allocator<Neuron> >*, std::vector<std::vector<Neuron, std::allocator<Neuron> >, std::allocator<std::vector<Neuron, std::allocator<Neuron> > > > >, std::vector<Neuron, std::allocator<Neuron> >&&)
+  0.00     17.55     0.00        1     0.00     0.00  generateTestSet(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, unsigned int)
+  0.00     17.55     0.00        1     0.00     0.00  testComplexNetwork(Net&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&)
+  0.00     17.55     0.00        1     0.00     0.00  generateTrainingSet(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, unsigned int)
+  0.00     17.55     0.00        1     0.00     0.00  Net::Net(std::vector<unsigned int, std::allocator<unsigned int> > const&)
+  0.00     17.55     0.00        1     0.00     0.00  std::_Vector_base<unsigned int, std::allocator<unsigned int> >::~_Vector_base()
+  0.00     17.55     0.00        1     0.00     0.00  std::vector<std::vector<Neuron, std::allocator<Neuron> >, std::allocator<std::vector<Neuron, std::allocator<Neuron> > > >::~vector()
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2024 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 0.06% of 17.55 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     97.8    0.00   17.17                 main [1]
+                0.02   17.15       1/1           trainComplexNetwork(Net&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, unsigned int) [2]
+                0.00    0.00       1/1           testComplexNetwork(Net&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&) [14]
+                0.00    0.00       4/4           std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::~vector() [28]
+                0.00    0.00       1/1           Net::Net(std::vector<unsigned int, std::allocator<unsigned int> > const&) [32]
+                0.00    0.00       1/1           generateTrainingSet(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, unsigned int) [31]
+                0.00    0.00       1/1           generateTestSet(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, unsigned int) [30]
+                0.00    0.00       1/1           std::vector<std::vector<Neuron, std::allocator<Neuron> >, std::allocator<std::vector<Neuron, std::allocator<Neuron> > > >::~vector() [34]
+                0.00    0.00       1/1           std::_Vector_base<unsigned int, std::allocator<unsigned int> >::~_Vector_base() [33]
+-----------------------------------------------
+                0.02   17.15       1/1           main [1]
+[2]     97.8    0.02   17.15       1         trainComplexNetwork(Net&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, unsigned int) [2]
+                0.81   12.25 12000000/12000000     Net::backProbagation(std::vector<double, std::allocator<double> > const&) [3]
+                0.43    3.64 12000000/12000100     Net::feedForward(std::vector<double, std::allocator<double> > const&) [5]
+                0.02    0.00 12000000/12000100     Net::getResults(std::vector<double, std::allocator<double> >&) const [12]
+-----------------------------------------------
+                0.81   12.25 12000000/12000000     trainComplexNetwork(Net&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, unsigned int) [2]
+[3]     74.4    0.81   12.25 12000000         Net::backProbagation(std::vector<double, std::allocator<double> > const&) [3]
+                9.89    0.00 492000000/492000000     Neuron::updateInputWeights(std::vector<Neuron, std::allocator<Neuron> >&) [4]
+                0.33    2.03 504000000/504000000     Neuron::calcHiddenGradients(std::vector<Neuron, std::allocator<Neuron> > const&) [7]
+                0.00    0.01 12000000/12000000     Neuron::calcOutputGradients(double) [13]
+-----------------------------------------------
+                9.89    0.00 492000000/492000000     Net::backProbagation(std::vector<double, std::allocator<double> > const&) [3]
+[4]     56.4    9.89    0.00 492000000         Neuron::updateInputWeights(std::vector<Neuron, std::allocator<Neuron> >&) [4]
+-----------------------------------------------
+                0.00    0.00     100/12000100     testComplexNetwork(Net&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&) [14]
+                0.43    3.64 12000000/12000100     trainComplexNetwork(Net&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, unsigned int) [2]
+[5]     23.2    0.43    3.64 12000100         Net::feedForward(std::vector<double, std::allocator<double> > const&) [5]
+                3.64    0.00 492004100/492004100     Neuron::feedforward(std::vector<Neuron, std::allocator<Neuron> > const&) [6]
+-----------------------------------------------
+                3.64    0.00 492004100/492004100     Net::feedForward(std::vector<double, std::allocator<double> > const&) [5]
+[6]     20.7    3.64    0.00 492004100         Neuron::feedforward(std::vector<Neuron, std::allocator<Neuron> > const&) [6]
+-----------------------------------------------
+                0.33    2.03 504000000/504000000     Net::backProbagation(std::vector<double, std::allocator<double> > const&) [3]
+[7]     13.4    0.33    2.03 504000000         Neuron::calcHiddenGradients(std::vector<Neuron, std::allocator<Neuron> > const&) [7]
+                1.64    0.00 504000000/504000000     Neuron::sumDOW(std::vector<Neuron, std::allocator<Neuron> > const&) const [8]
+                0.39    0.00 504000000/516000000     Neuron::Activation_prime(double) [9]
+-----------------------------------------------
+                1.64    0.00 504000000/504000000     Neuron::calcHiddenGradients(std::vector<Neuron, std::allocator<Neuron> > const&) [7]
+[8]      9.3    1.64    0.00 504000000         Neuron::sumDOW(std::vector<Neuron, std::allocator<Neuron> > const&) const [8]
+-----------------------------------------------
+                0.01    0.00 12000000/516000000     Neuron::calcOutputGradients(double) [13]
+                0.39    0.00 504000000/516000000     Neuron::calcHiddenGradients(std::vector<Neuron, std::allocator<Neuron> > const&) [7]
+[9]      2.3    0.40    0.00 516000000         Neuron::Activation_prime(double) [9]
+-----------------------------------------------
+                                                 <spontaneous>
+[10]     1.9    0.33    0.00                 _init [10]
+-----------------------------------------------
+                                                 <spontaneous>
+[11]     0.3    0.05    0.00                 Neuron::Activation(double) [11]
+-----------------------------------------------
+                0.00    0.00     100/12000100     testComplexNetwork(Net&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&) [14]
+                0.02    0.00 12000000/12000100     trainComplexNetwork(Net&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, unsigned int) [2]
+[12]     0.1    0.02    0.00 12000100         Net::getResults(std::vector<double, std::allocator<double> >&) const [12]
+                0.00    0.00     101/6701        void std::vector<double, std::allocator<double> >::_M_realloc_insert<double>(__gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > >, double&&) [22]
+-----------------------------------------------
+                0.00    0.01 12000000/12000000     Net::backProbagation(std::vector<double, std::allocator<double> > const&) [3]
+[13]     0.1    0.00    0.01 12000000         Neuron::calcOutputGradients(double) [13]
+                0.01    0.00 12000000/516000000     Neuron::Activation_prime(double) [9]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[14]     0.0    0.00    0.00       1         testComplexNetwork(Net&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&) [14]
+                0.00    0.00     100/12000100     Net::feedForward(std::vector<double, std::allocator<double> > const&) [5]
+                0.00    0.00     100/12000100     Net::getResults(std::vector<double, std::allocator<double> >&) const [12]
+-----------------------------------------------
+                0.00    0.00   12100/12100       generateComplexData(std::vector<double, std::allocator<double> >&, std::vector<double, std::allocator<double> >&) [23]
+[21]     0.0    0.00    0.00   12100         void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&) [21]
+                0.00    0.00    6600/6701        void std::vector<double, std::allocator<double> >::_M_realloc_insert<double>(__gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > >, double&&) [22]
+-----------------------------------------------
+                0.00    0.00     101/6701        Net::getResults(std::vector<double, std::allocator<double> >&) const [12]
+                0.00    0.00    6600/6701        void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&) [21]
+[22]     0.0    0.00    0.00    6701         void std::vector<double, std::allocator<double> >::_M_realloc_insert<double>(__gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > >, double&&) [22]
+-----------------------------------------------
+                0.00    0.00     100/1100        generateTestSet(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, unsigned int) [30]
+                0.00    0.00    1000/1100        generateTrainingSet(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, unsigned int) [31]
+[23]     0.0    0.00    0.00    1100         generateComplexData(std::vector<double, std::allocator<double> >&, std::vector<double, std::allocator<double> >&) [23]
+                0.00    0.00   12100/12100       void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&) [21]
+-----------------------------------------------
+                0.00    0.00     207/207         Neuron::Neuron(unsigned int, unsigned int) [25]
+[24]     0.0    0.00    0.00     207         void std::vector<Connection, std::allocator<Connection> >::_M_realloc_insert<Connection>(__gnu_cxx::__normal_iterator<Connection*, std::vector<Connection, std::allocator<Connection> > >, Connection&&) [24]
+-----------------------------------------------
+                0.00    0.00      55/55          Net::Net(std::vector<unsigned int, std::allocator<unsigned int> > const&) [32]
+[25]     0.0    0.00    0.00      55         Neuron::Neuron(unsigned int, unsigned int) [25]
+                0.00    0.00     207/207         void std::vector<Connection, std::allocator<Connection> >::_M_realloc_insert<Connection>(__gnu_cxx::__normal_iterator<Connection*, std::vector<Connection, std::allocator<Connection> > >, Connection&&) [24]
+-----------------------------------------------
+                0.00    0.00      16/38          generateTestSet(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, unsigned int) [30]
+                0.00    0.00      22/38          generateTrainingSet(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, unsigned int) [31]
+[26]     0.0    0.00    0.00      38         void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_realloc_insert<std::vector<double, std::allocator<double> > const&>(__gnu_cxx::__normal_iterator<std::vector<double, std::allocator<double> >*, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > >, std::vector<double, std::allocator<double> > const&) [26]
+-----------------------------------------------
+                0.00    0.00      19/19          Net::Net(std::vector<unsigned int, std::allocator<unsigned int> > const&) [32]
+[27]     0.0    0.00    0.00      19         void std::vector<Neuron, std::allocator<Neuron> >::_M_realloc_insert<Neuron>(__gnu_cxx::__normal_iterator<Neuron*, std::vector<Neuron, std::allocator<Neuron> > >, Neuron&&) [27]
+-----------------------------------------------
+                0.00    0.00       4/4           main [1]
+[28]     0.0    0.00    0.00       4         std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::~vector() [28]
+-----------------------------------------------
+                0.00    0.00       3/3           Net::Net(std::vector<unsigned int, std::allocator<unsigned int> > const&) [32]
+[29]     0.0    0.00    0.00       3         void std::vector<std::vector<Neuron, std::allocator<Neuron> >, std::allocator<std::vector<Neuron, std::allocator<Neuron> > > >::_M_realloc_insert<std::vector<Neuron, std::allocator<Neuron> > >(__gnu_cxx::__normal_iterator<std::vector<Neuron, std::allocator<Neuron> >*, std::vector<std::vector<Neuron, std::allocator<Neuron> >, std::allocator<std::vector<Neuron, std::allocator<Neuron> > > > >, std::vector<Neuron, std::allocator<Neuron> >&&) [29]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[30]     0.0    0.00    0.00       1         generateTestSet(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, unsigned int) [30]
+                0.00    0.00     100/1100        generateComplexData(std::vector<double, std::allocator<double> >&, std::vector<double, std::allocator<double> >&) [23]
+                0.00    0.00      16/38          void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_realloc_insert<std::vector<double, std::allocator<double> > const&>(__gnu_cxx::__normal_iterator<std::vector<double, std::allocator<double> >*, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > >, std::vector<double, std::allocator<double> > const&) [26]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[31]     0.0    0.00    0.00       1         generateTrainingSet(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, unsigned int) [31]
+                0.00    0.00    1000/1100        generateComplexData(std::vector<double, std::allocator<double> >&, std::vector<double, std::allocator<double> >&) [23]
+                0.00    0.00      22/38          void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_realloc_insert<std::vector<double, std::allocator<double> > const&>(__gnu_cxx::__normal_iterator<std::vector<double, std::allocator<double> >*, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > >, std::vector<double, std::allocator<double> > const&) [26]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[32]     0.0    0.00    0.00       1         Net::Net(std::vector<unsigned int, std::allocator<unsigned int> > const&) [32]
+                0.00    0.00      55/55          Neuron::Neuron(unsigned int, unsigned int) [25]
+                0.00    0.00      19/19          void std::vector<Neuron, std::allocator<Neuron> >::_M_realloc_insert<Neuron>(__gnu_cxx::__normal_iterator<Neuron*, std::vector<Neuron, std::allocator<Neuron> > >, Neuron&&) [27]
+                0.00    0.00       3/3           void std::vector<std::vector<Neuron, std::allocator<Neuron> >, std::allocator<std::vector<Neuron, std::allocator<Neuron> > > >::_M_realloc_insert<std::vector<Neuron, std::allocator<Neuron> > >(__gnu_cxx::__normal_iterator<std::vector<Neuron, std::allocator<Neuron> >*, std::vector<std::vector<Neuron, std::allocator<Neuron> >, std::allocator<std::vector<Neuron, std::allocator<Neuron> > > > >, std::vector<Neuron, std::allocator<Neuron> >&&) [29]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[33]     0.0    0.00    0.00       1         std::_Vector_base<unsigned int, std::allocator<unsigned int> >::~_Vector_base() [33]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[34]     0.0    0.00    0.00       1         std::vector<std::vector<Neuron, std::allocator<Neuron> >, std::allocator<std::vector<Neuron, std::allocator<Neuron> > > >::~vector() [34]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2024 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [30] generateTestSet(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, unsigned int) [6] Neuron::feedforward(std::vector<Neuron, std::allocator<Neuron> > const&) [24] void std::vector<Connection, std::allocator<Connection> >::_M_realloc_insert<Connection>(__gnu_cxx::__normal_iterator<Connection*, std::vector<Connection, std::allocator<Connection> > >, Connection&&)
+  [14] testComplexNetwork(Net&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&) [9] Neuron::Activation_prime(double) [27] void std::vector<Neuron, std::allocator<Neuron> >::_M_realloc_insert<Neuron>(__gnu_cxx::__normal_iterator<Neuron*, std::vector<Neuron, std::allocator<Neuron> > >, Neuron&&)
+  [23] generateComplexData(std::vector<double, std::allocator<double> >&, std::vector<double, std::allocator<double> >&) [4] Neuron::updateInputWeights(std::vector<Neuron, std::allocator<Neuron> >&) [29] void std::vector<std::vector<Neuron, std::allocator<Neuron> >, std::allocator<std::vector<Neuron, std::allocator<Neuron> > > >::_M_realloc_insert<std::vector<Neuron, std::allocator<Neuron> > >(__gnu_cxx::__normal_iterator<std::vector<Neuron, std::allocator<Neuron> >*, std::vector<std::vector<Neuron, std::allocator<Neuron> >, std::allocator<std::vector<Neuron, std::allocator<Neuron> > > > >, std::vector<Neuron, std::allocator<Neuron> >&&)
+  [31] generateTrainingSet(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, unsigned int) [7] Neuron::calcHiddenGradients(std::vector<Neuron, std::allocator<Neuron> > const&) [34] std::vector<std::vector<Neuron, std::allocator<Neuron> >, std::allocator<std::vector<Neuron, std::allocator<Neuron> > > >::~vector()
+   [2] trainComplexNetwork(Net&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, unsigned int) [13] Neuron::calcOutputGradients(double) [26] void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_realloc_insert<std::vector<double, std::allocator<double> > const&>(__gnu_cxx::__normal_iterator<std::vector<double, std::allocator<double> >*, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > >, std::vector<double, std::allocator<double> > const&)
+   [5] Net::feedForward(std::vector<double, std::allocator<double> > const&) [25] Neuron::Neuron(unsigned int, unsigned int) [28] std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::~vector()
+   [3] Net::backProbagation(std::vector<double, std::allocator<double> > const&) [12] Net::getResults(std::vector<double, std::allocator<double> >&) const [21] void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&)
+  [32] Net::Net(std::vector<unsigned int, std::allocator<unsigned int> > const&) [8] Neuron::sumDOW(std::vector<Neuron, std::allocator<Neuron> > const&) const [22] void std::vector<double, std::allocator<double> >::_M_realloc_insert<double>(__gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > >, double&&)
+  [11] Neuron::Activation(double) [33] std::_Vector_base<unsigned int, std::allocator<unsigned int> >::~_Vector_base() [10] _init

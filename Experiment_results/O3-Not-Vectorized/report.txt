@@ -1,0 +1,32 @@
+# Set optimization flags for Intel Advisor profiling.
+# -O2        : safe optimization
+# -g         : include debug symbols
+# -march=native : use best SIMD supported by current CPU
+# -fno-inline   : keep functions and loops visible to Advisor
+# -pg         : enable gprof profiling
+# -fno-tree-vectorize  : disable vectorization
+
+USED FLAGS  : -O3 -g -march=native  -fno-inline -fno-tree-vectorize
+
+omar@omar-sulaivany:~/Neural_Network_CPP/Release$ ./O3-no-vec 
+Starting Training Phase...
+Epoch 1000: Average Loss = 0.0037625
+Epoch 2000: Average Loss = 0.00101973
+Epoch 3000: Average Loss = 0.000457929
+Epoch 4000: Average Loss = 0.00045368
+Epoch 5000: Average Loss = 0.00137384
+Epoch 6000: Average Loss = 0.000406083
+Epoch 7000: Average Loss = 0.000805531
+Epoch 8000: Average Loss = 0.0014259
+Epoch 9000: Average Loss = 0.000173993
+Epoch 10000: Average Loss = 0.000591781
+Epoch 11000: Average Loss = 0.000311278
+Epoch 12000: Average Loss = 0.000458627
+
+Starting Testing Phase...
+
+Testing Results:
+Accuracy: 95%
+Average Loss: 0.0413466
+
+Total CPU Elapsed time:  67.347 seconds (Taken from Intel Vtune Profiler tool)

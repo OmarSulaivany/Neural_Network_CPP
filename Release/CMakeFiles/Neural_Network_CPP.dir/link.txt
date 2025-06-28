@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -g -march=native  -fno-inline -fopenmp -fno-tree-vectorize -fopenmp -rdynamic CMakeFiles/Neural_Network_CPP.dir/src/main.cpp.o CMakeFiles/Neural_Network_CPP.dir/src/dataset.cpp.o CMakeFiles/Neural_Network_CPP.dir/src/Net.cpp.o CMakeFiles/Neural_Network_CPP.dir/src/Neuron.cpp.o -o Neural_Network_CPP 

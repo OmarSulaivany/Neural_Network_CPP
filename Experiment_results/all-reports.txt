@@ -1,0 +1,426 @@
+# Set optimization flags for Intel Advisor profiling.
+# -O2        : safe optimization
+# -g         : include debug symbols
+# -march=native : use best SIMD supported by current CPU
+# -fno-inline   : keep functions and loops visible to Advisor
+# -pg         : enable gprof profiling
+# -fno-tree-vectorize  : disable vectorization
+
+USED FLAGS  : -O1 -g -march=native
+
+omar@omar-sulaivany:~/Neural_Network_CPP/Release$ ./O1-vec
+Starting Training Phase...
+Epoch 1000: Average Loss = 0.0037625
+Epoch 2000: Average Loss = 0.0010197
+Epoch 3000: Average Loss = 0.00046677
+Epoch 4000: Average Loss = 0.000326212
+Epoch 5000: Average Loss = 0.000431983
+Epoch 6000: Average Loss = 0.000296788
+Epoch 7000: Average Loss = 0.000186683
+Epoch 8000: Average Loss = 0.000192855
+Epoch 9000: Average Loss = 0.000130636
+Epoch 10000: Average Loss = 0.000226287
+Epoch 11000: Average Loss = 0.00010995
+Epoch 12000: Average Loss = 0.000242699
+
+Starting Testing Phase...
+
+Testing Results:
+Accuracy: 97%
+Average Loss: 0.0199181
+
+Total CPU Elapsed time: 35.865 seconds (Taken from Intel Vtune Profiler tool)
+
+
+
+USED FLAGS  : -O1 -g -march=native  -fno-inline -fno-tree-vectorize
+
+omar@omar-sulaivany:~/Neural_Network_CPP/Release$ ./O1-no-vec 
+Starting Training Phase...
+Epoch 1000: Average Loss = 0.0037625
+Epoch 2000: Average Loss = 0.0010197
+Epoch 3000: Average Loss = 0.00046677
+Epoch 4000: Average Loss = 0.000326212
+Epoch 5000: Average Loss = 0.000431983
+Epoch 6000: Average Loss = 0.000296788
+Epoch 7000: Average Loss = 0.000186683
+Epoch 8000: Average Loss = 0.000192855
+Epoch 9000: Average Loss = 0.000130636
+Epoch 10000: Average Loss = 0.000226287
+Epoch 11000: Average Loss = 0.00010995
+Epoch 12000: Average Loss = 0.000242699
+
+Starting Testing Phase...
+
+Testing Results:
+Accuracy: 97%
+Average Loss: 0.0199181
+
+Total CPU Elapsed time: 78.110 seconds (Taken from Intel Vtune Profiler tool)
+
+# Set optimization flags for Intel Advisor profiling.
+# -O2        : safe optimization
+# -g         : include debug symbols
+# -march=native : use best SIMD supported by current CPU
+# -fno-inline   : keep functions and loops visible to Advisor
+# -pg         : enable gprof profiling
+# -fno-tree-vectorize  : disable vectorization
+
+USED FLAGS  : -O2 -g -march=native  -fno-inline
+
+omar@omar-sulaivany:~/Neural_Network_CPP/Release$ ./O2-Vec 
+Starting Training Phase...
+Epoch 1000: Average Loss = 0.0037625
+Epoch 2000: Average Loss = 0.00101973
+Epoch 3000: Average Loss = 0.000457929
+Epoch 4000: Average Loss = 0.00045368
+Epoch 5000: Average Loss = 0.00137384
+Epoch 6000: Average Loss = 0.000406083
+Epoch 7000: Average Loss = 0.000805531
+Epoch 8000: Average Loss = 0.0014259
+Epoch 9000: Average Loss = 0.000173993
+Epoch 10000: Average Loss = 0.000591781
+Epoch 11000: Average Loss = 0.000311278
+Epoch 12000: Average Loss = 0.000458627
+
+Starting Testing Phase...
+
+Testing Results:
+Accuracy: 95%
+Average Loss: 0.0413466
+
+Total CPU Elapsed time: 67.610 seconds (Taken from Intel Vtune Profiler tool)
+
+# Set optimization flags for Intel Advisor profiling.
+# -O2        : safe optimization
+# -g         : include debug symbols
+# -march=native : use best SIMD supported by current CPU
+# -fno-inline   : keep functions and loops visible to Advisor
+# -pg         : enable gprof profiling
+# -fno-tree-vectorize  : disable vectorization
+
+USED FLAGS  : -O2 -g -march=native  -fno-inline -fno-tree-vectorize
+
+omar@omar-sulaivany:~/Neural_Network_CPP/Release$ ./O2-no-vec 
+Starting Training Phase...
+Epoch 1000: Average Loss = 0.0037625
+Epoch 2000: Average Loss = 0.00101973
+Epoch 3000: Average Loss = 0.000457929
+Epoch 4000: Average Loss = 0.00045368
+Epoch 5000: Average Loss = 0.00137384
+Epoch 6000: Average Loss = 0.000406083
+Epoch 7000: Average Loss = 0.000805531
+Epoch 8000: Average Loss = 0.0014259
+Epoch 9000: Average Loss = 0.000173993
+Epoch 10000: Average Loss = 0.000591781
+Epoch 11000: Average Loss = 0.000311278
+Epoch 12000: Average Loss = 0.000458627
+
+Starting Testing Phase...
+
+Testing Results:
+Accuracy: 95%
+Average Loss: 0.0413466
+
+Total CPU Elapsed time: 64.425 seconds (Taken from Intel Vtune Profiler tool)
+
+# Set optimization flags for Intel Advisor profiling.
+# -O2        : safe optimization
+# -g         : include debug symbols
+# -march=native : use best SIMD supported by current CPU
+# -fno-inline   : keep functions and loops visible to Advisor
+# -pg         : enable gprof profiling
+# -fno-tree-vectorize  : disable vectorization
+
+USED FLAGS  : -O3 -g -march=native  -fno-inline
+
+omar@omar-sulaivany:~/Neural_Network_CPP/Release$ ./O3-Vec 
+Starting Training Phase...
+Epoch 1000: Average Loss = 0.0037625
+Epoch 2000: Average Loss = 0.00101973
+Epoch 3000: Average Loss = 0.000457929
+Epoch 4000: Average Loss = 0.00045368
+Epoch 5000: Average Loss = 0.00137384
+Epoch 6000: Average Loss = 0.000406083
+Epoch 7000: Average Loss = 0.000805531
+Epoch 8000: Average Loss = 0.0014259
+Epoch 9000: Average Loss = 0.000173993
+Epoch 10000: Average Loss = 0.000591781
+Epoch 11000: Average Loss = 0.000311278
+Epoch 12000: Average Loss = 0.000458627
+
+Starting Testing Phase...
+
+Testing Results:
+Accuracy: 95%
+Average Loss: 0.0413466
+
+Total CPU Elapsed time:  67.336 seconds (Taken from Intel Vtune Profiler tool)
+
+# Set optimization flags for Intel Advisor profiling.
+# -O2        : safe optimization
+# -g         : include debug symbols
+# -march=native : use best SIMD supported by current CPU
+# -fno-inline   : keep functions and loops visible to Advisor
+# -pg         : enable gprof profiling
+# -fno-tree-vectorize  : disable vectorization
+
+USED FLAGS  : -O3 -g -march=native  -fno-inline -fno-tree-vectorize
+
+omar@omar-sulaivany:~/Neural_Network_CPP/Release$ ./O3-no-vec 
+Starting Training Phase...
+Epoch 1000: Average Loss = 0.0037625
+Epoch 2000: Average Loss = 0.00101973
+Epoch 3000: Average Loss = 0.000457929
+Epoch 4000: Average Loss = 0.00045368
+Epoch 5000: Average Loss = 0.00137384
+Epoch 6000: Average Loss = 0.000406083
+Epoch 7000: Average Loss = 0.000805531
+Epoch 8000: Average Loss = 0.0014259
+Epoch 9000: Average Loss = 0.000173993
+Epoch 10000: Average Loss = 0.000591781
+Epoch 11000: Average Loss = 0.000311278
+Epoch 12000: Average Loss = 0.000458627
+
+Starting Testing Phase...
+
+Testing Results:
+Accuracy: 95%
+Average Loss: 0.0413466
+
+Total CPU Elapsed time:  67.347 seconds (Taken from Intel Vtune Profiler tool)
+
+# Set optimization flags for Intel Advisor profiling.
+# -O2        : safe optimization
+# -g         : include debug symbols
+# -march=native : use best SIMD supported by current CPU
+# -fno-inline   : keep functions and loops visible to Advisor
+# -pg         : enable gprof profiling
+# -fno-tree-vectorize  : disable vectorization
+# -fopenmp             : enable OpenMP support (multi-threading)
+
+USED FLAGS  : -O1 -g -march=native  -fno-inline -fopenmp
+
+12 Threads
+
+omar@omar-sulaivany:~/Neural_Network_CPP/Release$ ./O1-omp 
+Starting Training Phase...
+Epoch 7000: Average Loss = 0.255023
+Epoch 8000: Average Loss = 0.266965
+Epoch 4000: Average Loss = 0.253463
+Epoch 11000: Average Loss = 0.270045
+Epoch 5000: Average Loss = 0.262342
+Epoch 12000: Average Loss = 0.268335
+Epoch 6000: Average Loss = 0.275544
+Epoch 9000: Average Loss = 0.286186
+Epoch 1000: Average Loss = 0.270479
+Epoch 10000: Average Loss = 0.292136
+Epoch 2000: Average Loss = 0.095467
+Epoch 3000: Average Loss = 0.0137405
+
+Starting Testing Phase...
+
+Testing Results:
+Accuracy: 99%
+Average Loss: 0.0166808
+
+Total CPU Elapsed time:  42.707 seconds (Taken from Intel Vtune Profiler tool)
+---------------------------------------------------------------------------------------------
+8 Threads
+omar@omar-sulaivany:~/Neural_Network_CPP/Release$ ./O1-omp-8threads 
+Starting Training Phase...
+Epoch 2000: Average Loss = 0.259443
+Epoch 8000: Average Loss = 0.273562
+Epoch 11000: Average Loss = 0.285428
+Epoch 5000: Average Loss = 0.287958
+Epoch 10000: Average Loss = 0.291626
+Epoch 4000: Average Loss = 0.292824
+Epoch 1000: Average Loss = 0.298547
+Epoch 7000: Average Loss = 0.297514
+Epoch 3000: Average Loss = 0.29528
+Epoch 9000: Average Loss = 0.235293
+Epoch 6000: Average Loss = 0.213753
+Epoch 12000: Average Loss = 0.0516058
+
+Starting Testing Phase...
+
+Testing Results:
+Accuracy: 100%
+Average Loss: 0.00583565
+
+Total CPU Elapsed time:  55.735 seconds (Taken from Intel Vtune Profiler tool)
+-----------------------------------------------------------------------------------------------
+4 Threads
+omar@omar-sulaivany:~/Neural_Network_CPP/Release$ ./O1-omp-4threads 
+Starting Training Phase...
+Epoch 7000: Average Loss = 0.303236
+Epoch 4000: Average Loss = 0.276952
+Epoch 1000: Average Loss = 0.330447
+Epoch 10000: Average Loss = 0.330061
+Epoch 8000: Average Loss = 0.194026
+Epoch 5000: Average Loss = 0.181374
+Epoch 2000: Average Loss = 0.312808
+Epoch 11000: Average Loss = 0.291296
+Epoch 9000: Average Loss = 0.185548
+Epoch 6000: Average Loss = 0.331742
+Epoch 3000: Average Loss = 0.0245418
+Epoch 12000: Average Loss = 0.000671792
+
+Starting Testing Phase...
+
+Testing Results:
+Accuracy: 100%
+Average Loss: 0.000306895
+
+Total CPU Elapsed time:  82.851 seconds (Taken from Intel Vtune Profiler tool)
+---------------------------------------------------------------------------------
+12 threads - No vectorization
+
+omar@omar-sulaivany:~/Neural_Network_CPP/Release$ ./O1-omp-no-vec-12threads 
+Starting Training Phase...
+Epoch 6000: Average Loss = 0.263599
+Epoch 4000: Average Loss = 0.268107
+Epoch 5000: Average Loss = 0.259629
+Epoch 12000: Average Loss = 0.255402
+Epoch 10000: Average Loss = 0.284441
+Epoch 9000: Average Loss = 0.274548
+Epoch 1000: Average Loss = 0.255399
+Epoch 7000: Average Loss = 0.29031
+Epoch 3000: Average Loss = 0.324113
+Epoch 2000: Average Loss = 0.121088
+Epoch 8000: Average Loss = 0.046709
+Epoch 11000: Average Loss = 0.0165141
+
+Starting Testing Phase...
+
+Testing Results:
+Accuracy: 99%
+Average Loss: 0.0220121
+
+Total CPU Elapsed time:  42.634 seconds (Taken from Intel Vtune Profiler tool)
+
+
+
+# Set optimization flags for Intel Advisor profiling.
+# -O2        : safe optimization
+# -g         : include debug symbols
+# -march=native : use best SIMD supported by current CPU
+# -fno-inline   : keep functions and loops visible to Advisor
+# -pg         : enable gprof profiling
+# -fno-tree-vectorize  : disable vectorization
+# -fopenmp             : enable OpenMP support (multi-threading)
+
+USED FLAGS  : -O2 -g -march=native  -fno-inline -fopenmp
+
+12threads
+omar@omar-sulaivany:~/Neural_Network_CPP/Release$ ./O2-omp-12threads 
+Starting Training Phase...
+Epoch 2000: Average Loss = 0.263571
+Epoch 1000: Average Loss = 0.270037
+Epoch 6000: Average Loss = 0.258291
+Epoch 9000: Average Loss = 0.252962
+Epoch 4000: Average Loss = 0.272972
+Epoch 10000: Average Loss = 0.286754
+Epoch 5000: Average Loss = 0.280785
+Epoch 11000: Average Loss = 0.265298
+Epoch 7000: Average Loss = 0.292369
+Epoch 12000: Average Loss = 0.19313
+Epoch 8000: Average Loss = 0.129483
+Epoch 3000: Average Loss = 0.027001
+
+Starting Testing Phase...
+
+Testing Results:
+Accuracy: 96%
+Average Loss: 0.0334303
+
+Total CPU Elapsed time:  41.761 seconds (Taken from Intel Vtune Profiler tool)
+
+--------------------------------------------------------------------------------
+
+12threads No victorization
+omar@omar-sulaivany:~/Neural_Network_CPP/Release$ ./O2-omp-12threads 
+Starting Training Phase...
+Epoch 2000: Average Loss = 0.262468
+Epoch 3000: Average Loss = 0.272764
+Epoch 4000: Average Loss = 0.257739
+Epoch 8000: Average Loss = 0.268326
+Epoch 10000: Average Loss = 0.268824
+Epoch 12000: Average Loss = 0.265621
+Epoch 6000: Average Loss = 0.274951
+Epoch 9000: Average Loss = 0.276618
+Epoch 11000: Average Loss = 0.224035
+Epoch 7000: Average Loss = 0.207989
+Epoch 5000: Average Loss = 0.114288
+Epoch 1000: Average Loss = 0.0169808
+
+Starting Testing Phase...
+
+Testing Results:
+Accuracy: 96%
+Average Loss: 0.0250009
+
+Total CPU Elapsed time:  42.178 seconds (Taken from Intel Vtune Profiler tool)
+
+
+
+# Set optimization flags for Intel Advisor profiling.
+# -O2        : safe optimization
+# -g         : include debug symbols
+# -march=native : use best SIMD supported by current CPU
+# -fno-inline   : keep functions and loops visible to Advisor
+# -pg         : enable gprof profiling
+# -fno-tree-vectorize  : disable vectorization
+# -fopenmp             : enable OpenMP support (multi-threading)
+
+USED FLAGS  : -O3 -g -march=native  -fno-inline -fopenmp
+
+12threads
+omar@omar-sulaivany:~/Neural_Network_CPP/Release$ ./O3-omp-12threads 
+Starting Training Phase...
+Epoch 10000: Average Loss = 0.2703
+Epoch 2000: Average Loss = 0.266049
+Epoch 12000: Average Loss = 0.262723
+Epoch 5000: Average Loss = 0.274242
+Epoch 9000: Average Loss = 0.27163
+Epoch 8000: Average Loss = 0.282985
+Epoch 7000: Average Loss = 0.229306
+Epoch 4000: Average Loss = 0.287708
+Epoch 6000: Average Loss = 0.28447
+Epoch 3000: Average Loss = 0.314782
+Epoch 1000: Average Loss = 0.0623853
+Epoch 11000: Average Loss = 0.00970023
+
+Starting Testing Phase...
+
+Testing Results:
+Accuracy: 99%
+Average Loss: 0.0122598
+
+Total CPU Elapsed time:  41.404 seconds (Taken from Intel Vtune Profiler tool)
+
+--------------------------------------------------------------------------------
+
+12threads No victorization
+omar@omar-sulaivany:~/Neural_Network_CPP/Release$ ./O3-omp-no-vec-12threads 
+Starting Training Phase...
+Epoch 1000: Average Loss = 0.264063
+Epoch 9000: Average Loss = 0.261889
+Epoch 8000: Average Loss = 0.267516
+Epoch 4000: Average Loss = 0.297322
+Epoch 7000: Average Loss = 0.262043
+Epoch 6000: Average Loss = 0.277116
+Epoch 10000: Average Loss = 0.218217
+Epoch 12000: Average Loss = 0.208024
+Epoch 2000: Average Loss = 0.295511
+Epoch 3000: Average Loss = 0.288825
+Epoch 5000: Average Loss = 0.158977
+Epoch 11000: Average Loss = 0.019818
+
+Starting Testing Phase...
+
+Testing Results:
+Accuracy: 97%
+Average Loss: 0.0243507
+
+Total CPU Elapsed time:  42.585 seconds (Taken from Intel Vtune Profiler tool)

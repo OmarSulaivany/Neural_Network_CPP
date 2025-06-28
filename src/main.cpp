@@ -1,5 +1,5 @@
 /* Neural Network Implementation in C++.
-Author: Omar T. Mohammed
+Author: Omar Sulaivany
 Date: 18-Jan-2021 */
 
 #include <vector>
@@ -7,7 +7,10 @@ Date: 18-Jan-2021 */
 #include "../include/dataset.h"
 #include <iostream>
 #include <cmath> // For calculating loss
+#include <omp.h> // For OpenMP parallelization
 using namespace std;
+
+
 
 /***************************Helper Functions**************************************/
 
@@ -29,6 +32,8 @@ bool hasOverlap(const vector<vector<double>>& trainingInputs, const vector<vecto
 /* Function to train the network */
 void trainComplexNetwork(Net& myNet, const vector<vector<double>>& trainingInputs, const vector<vector<double>>& trainingTargets, unsigned totalEpochs) {
     vector<double> resultVals;
+    double totalLoss = 0.0; // Accumulator for loss over the training dataset
+    #pragma omp parallel for reduction(+:totalLoss) // Parallelize the outer loop with 4 threads
     for (unsigned epoch = 0; epoch < totalEpochs; ++epoch) {
         double totalLoss = 0.0; // Accumulator for loss over the training dataset
 

@@ -1,0 +1,5 @@
+1. cd src
+2. g++ dataset.cpp main.cpp Net.cpp Neuron.cpp -O1  -I ../include -o ../Release/Neural_Net -pg
+3. cd ../Release
+4. /usr/bin/time -f "%e" ./Neural_Net > /dev/null
+5. gprof Neural_Net gmon.out > report.txt

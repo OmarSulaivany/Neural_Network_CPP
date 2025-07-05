@@ -1,6 +1,5 @@
 /* Neural Network Implementation in C++.
-Author: Omar Sulaivany
-Date: 18-Jan-2021 */
+Author: Omar Sulaivany */
 
 #include <vector>
 #include "../include/Net.h"
@@ -33,7 +32,7 @@ bool hasOverlap(const vector<vector<double>>& trainingInputs, const vector<vecto
 void trainComplexNetwork(Net& myNet, const vector<vector<double>>& trainingInputs, const vector<vector<double>>& trainingTargets, unsigned totalEpochs) {
     vector<double> resultVals;
     double totalLoss = 0.0; // Accumulator for loss over the training dataset
-    #pragma omp parallel for reduction(+:totalLoss) // Parallelize the outer loop with 4 threads
+    // #pragma omp parallel for reduction(+:totalLoss) // Parallelize the outer loop with 4 threads
     for (unsigned epoch = 0; epoch < totalEpochs; ++epoch) {
         double totalLoss = 0.0; // Accumulator for loss over the training dataset
 

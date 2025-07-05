@@ -22,7 +22,7 @@ endif()
 # -fno-tree-vectorize  : disable vectorization
 # -fopenmp             : enable OpenMP support (multi-threading)
 
-set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -march=native  -fno-inline -fopenmp -fno-tree-vectorize")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O1 -g -march=native -fopenmp")
 
 # Set linker flags to enable gprof profiling and OpenMP output.
 # set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "-pg -fopenmp")

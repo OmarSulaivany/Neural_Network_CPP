@@ -3,6 +3,7 @@
 #include <cassert>
 #include <vector>
 #include<cmath>
+#include <omp.h>
 using namespace std;
 
 // Number of training samples to average over.
@@ -80,6 +81,7 @@ void Net::feedForward(const vector <double> &inputVals)
     /* Forward propag. it means loop through each layer and then loop through each neuron inside that layer,
      after that tell each neuron to feedforward. we start from looping through the second layer because we've
      already set the first input layer with inputvals.*/
+	 
 	for(unsigned layerNum = 1 ; layerNum<m_layers.size();++layerNum)
       {
 
@@ -89,6 +91,7 @@ void Net::feedForward(const vector <double> &inputVals)
       	Layer &preLayer = m_layers[layerNum -1];
 
         /* loop through each neuron in the current layer, except the bias neuron. */
+		#pragma omp parallel for num_threads(8)
       	for(unsigned n = 0;n<m_layers[layerNum].size() -1;++n)
       	{
       		// cout<<"Neuron "<<n<<" Output Value = ";

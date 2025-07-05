@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/omar/Neural_Network_CPP/include
 
-CXX_FLAGS = -O3 -g -march=native  -fno-inline -fopenmp -fno-tree-vectorize -std=gnu++11
+CXX_FLAGS = -O1 -g -march=native -fopenmp -std=gnu++11
 
